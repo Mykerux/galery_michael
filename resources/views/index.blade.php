@@ -16,14 +16,17 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
+      </li> --}}
       <li class="nav-item d-none d-sm-inline-block">
         <a href="/" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="/" class="nav-link">| Selamat Datang <b>{{ session()->get('name') }}</b></a>
       </li>
       
     </ul>
@@ -58,7 +61,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/logut" role="button">
+        <a class="nav-link" href="/logout" role="button">
           <i class="fas fa-th-large"></i> Loguot
         </a>
       </li>
@@ -70,18 +73,21 @@
  
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  {{-- <div class="content-wrapper"> --}}
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Timeline</h1>
+            <h1>Galery Michael'</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Timeline</li>
+              <li class="breadcrumb-item">
+                <button class="btn btn-primary" data-toggle="modal" data-target="#baru">Galery Baru</button>
+              </li>
+              {{-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Timeline</li> --}}
             </ol>
           </div>
         </div>
@@ -98,41 +104,50 @@
             <!-- The time line -->
             <div class="timeline">
               <!-- timeline time label -->
+
+              @foreach ($galeries as $item)
+              
               <div class="time-label">
-                <span class="bg-red">10 Feb. 2014</span>
+                <span class="bg-red">{{ date('d-M-Y', strtotime($item->created_at)) }}</span>
               </div>
               <!-- /.timeline-label -->
               <!-- timeline item -->
               <div>
-                <i class="fas fa-envelope bg-blue"></i>
+                <i class="fa fa-camera bg-purple"></i>
                 <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 12:05</span>
-                  <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-
+                  <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
+                  <h3 class="timeline-header"><a href="#"><b>{{ $item->judul }}</b></a> / {{ $item->deskripsi }}</h3>
                   <div class="timeline-body">
-                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                    quora plaxo ideeli hulu weebly balihoo...
+                    <img src="{{ Storage::url($item->photo) }}" alt="...">
                   </div>
-                  <div class="timeline-footer">
-                    <a class="btn btn-primary btn-sm">Read more</a>
-                    <a class="btn btn-danger btn-sm">Delete</a>
+
+                  {{-- Tombol Edit & Delete --}}
+                  <div class="row mb-3">
+                    <a href="#" data-id="{{ $item->id }}" class="btn btn-warning ml-4 mr-1 edit" data-toggle="modal" data-target="#baru">Ubah</a>
+                    <form action="{{ route('gallery.destroy', $item->id) }}" method="post">
+                      @csrf 
+                      @method('DELETE')
+                      <button type="submit" id="delete" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin Menghapus Foto?')">Hapus</button>
+
+                    </form>
                   </div>
                 </div>
               </div>
+              @endforeach
+
+
               <!-- END timeline item -->
               <!-- timeline item -->
-              <div>
+              {{-- <div>
                 <i class="fas fa-user bg-green"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 5 mins ago</span>
                   <h3 class="timeline-header no-border"><a href="#">Sarah Young</a> accepted your friend request</h3>
                 </div>
-              </div>
+              </div> --}}
               <!-- END timeline item -->
               <!-- timeline item -->
-              <div>
+              {{-- <div>
                 <i class="fas fa-comments bg-yellow"></i>
                 <div class="timeline-item">
                   <span class="time"><i class="fas fa-clock"></i> 27 mins ago</span>
@@ -146,31 +161,18 @@
                     <a class="btn btn-warning btn-sm">View comment</a>
                   </div>
                 </div>
-              </div>
+              </div> --}}
               <!-- END timeline item -->
               <!-- timeline time label -->
-              <div class="time-label">
+              {{-- <div class="time-label">
                 <span class="bg-green">3 Jan. 2014</span>
-              </div>
+              </div> --}}
               <!-- /.timeline-label -->
               <!-- timeline item -->
-              <div>
-                <i class="fa fa-camera bg-purple"></i>
-                <div class="timeline-item">
-                  <span class="time"><i class="fas fa-clock"></i> 2 days ago</span>
-                  <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                  <div class="timeline-body">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                    <img src="https://placehold.it/150x100" alt="...">
-                  </div>
-                </div>
-              </div>
+              
               <!-- END timeline item -->
               <!-- timeline item -->
-              <div>
+              {{-- <div>
                 <i class="fas fa-video bg-maroon"></i>
 
                 <div class="timeline-item">
@@ -187,7 +189,7 @@
                     <a href="#" class="btn btn-sm bg-maroon">See comments</a>
                   </div>
                 </div>
-              </div>
+              </div> --}}
               <!-- END timeline item -->
               <div>
                 <i class="fas fa-clock bg-gray"></i>
@@ -201,8 +203,48 @@
 
     </section>
     <!-- /.content -->
-  </div>
+  
   <!-- /.content-wrapper -->
+  <div class="modal fade" id="baru">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Galery Baru
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('gallery.store') }}" method="post" enctype="multipart/form-data" id="formpost">
+          @csrf
+          <input type="hidden" name="id" id="id">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="judul">Judul</label>
+              <input type="text" name="judul" id="judul" class="form-control" placeholder="Isikan Judul" required>
+            </div>
+            <div class="form-group">
+              <label for="deskripsi">Deskripsi</label>
+              <input type="text" name="deskripsi" id="deskripsi" class="form-control" placeholder="Isikan Deskripsi Photo" required>
+            </div>
+            <div class="form-group">
+              <label for="photo">Photo</label>
+              <input type="file" name="photo" id="photo" class="form-control" placeholder="Upload Photo" required>
+            </div>
+
+          </div>
+
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
 
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
@@ -226,6 +268,35 @@
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ asset('dist/js/demo.js') }}"></script>
+{{-- <script src="{{ asset('dist/js/demo.js') }}"></script> --}}
+
+
+<script>
+  // alert('sss');
+  
+  $('body').on('click','a.edit',function(e){
+    e.preventDefault();
+    var id = $(this).data('id');
+    alert(id);
+
+    $.ajax({
+      data:{
+        "id":id
+      },
+      url:"{{ route('gallery.edit',csrf_token()) }}",
+      type:'GET',
+      dataType:'json',
+      success:function(data)
+      {
+        $('#id').val(data.id);
+        $('#judul').val(data.judul);
+        $('#deskripsi').val(data.deskripsi);
+        // allert('ass');
+      }
+    })
+  })
+</script>
+
+
 </body>
 </html>

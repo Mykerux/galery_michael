@@ -22,7 +22,7 @@
       
    <div class="card">
       <div class="card-body register-card-body">
-         <p class="login-box-msg">Register a new membership</p>
+         <p class="login-box-msg">Registrasi Akun Anda</p>
 
       <form action="{{ route('postregister') }}" method="post">
          @csrf
@@ -71,10 +71,11 @@
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
               <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
+               Saya Bukan <a href="#">Robot</a>
               </label>
             </div>
           </div>
+
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Register</button>
@@ -95,7 +96,7 @@
         </a>
       </div> --}}
 
-      <a href="/login" class="text-center">I already have a membership</a>
+      <a href="/login" class="text-center">Saya Sudah Punya Akun</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->

@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function(){
     
-    Route::resource('galery', GaleryController::class);
+    Route::resource('gallery', GaleryController::class);
 });
 
 Route::get('/login', [AuthController::class,'index'])->name('login');
@@ -30,3 +30,5 @@ Route::post('/login', [AuthController::class,'postLogin'])->name('postlogin');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'postRegister'])->name('postregister');
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

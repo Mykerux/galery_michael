@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Galery extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = [
-      'judul',
-      'photo',
-      'deskripsi',
-      'user_id'  
-    ];
+    // protected $fillable = [
+    //   'judul',
+    //   'photo',
+    //   'deskripsi',
+    //   'user_id'  
+    // ];
+    
+    protected $guarded = [];
 }
